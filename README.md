@@ -12,3 +12,19 @@ The plan is to have a single Azure Storage Account with 2 separate containers.
     - `curated/world_university_rankings`
 
 The idea between separating the `raw` and `curated` datasets by containers (instead of just having 2 separate directories in the same container) is to avoid mistakes that lead to data pollution.
+
+## Azure Data Factory
+
+ADF is a service that can copy data from one location to another. Each data copy job is done by a pipeline, and Data Factory is responsible for managing those pipelines for you.
+
+- A dataset is linked to a service the data came from.
+- Likewise, datasets can have target linked services where the data must be written to.
+
+In a Data Factory Copy Activity pipeline, datasets determine the source and destination (sink) data formats. The actual data conversion process is handled by the pipeline; it just needs to know the different data formats it is dealing with.
+
+Example use case: Import a .csv file from Azure Blob Storage to Azure SQL.
+- For **idempotent pipelines** where the same data might be sent through the pipeline multiple times; the destination (sink) exposes a pre-copy script that allows you to delete the previous corresponding data in the sink (e.g. `DELETE from table-name`).
+
+## Misc. Notes
+
+- We can sync the `raw` data folder up to our storage account's `raw` container using the `azcopy` command-line utility.
