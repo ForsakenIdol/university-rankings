@@ -34,3 +34,12 @@ Example use case: Import a .csv file from Azure Blob Storage to Azure SQL.
 ## Misc. Notes
 
 - We can sync the `raw` data folder up to our storage account's `raw` container using the `azcopy` command-line utility.
+- Create the linked services before the datasets.
+- For the database, use `Azure SQL Database` as the integration.
+- For the storage account, use `Azure Blob Storage` as the integration.
+- For the data factory, we need to create a **Data Flow**, not a Copy pipeline.
+    - Debug mode is super useful for the data flow.
+    - `rawData -> fixScoresColumns -> sqlData`
+    - Then, to actually execute the data flow, we need to add it to a pipeline, like any other resource.
+- Don't delete the pipeline that was created via ClickOps! Use it as a reference when creating the Terraform stuff in another resource group.
+- VARCHAR without an explicit size has a default length of 1 character in SQL Server.
