@@ -1,0 +1,17 @@
+name: sync-infra
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+    check-and-apply-infra-changes:
+        runs-on: ubuntu-22.04
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v6
+            
+            - name: Repository tree
+              run: |
+                ls -la
+                tree
