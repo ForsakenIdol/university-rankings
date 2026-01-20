@@ -6,8 +6,8 @@ A basic data pipeline on Azure which ingests and cleans the World University Ran
 
 The plan is to have a single Azure Storage Account with 2 separate containers.
 1. `raw`: The raw data, straight from Kaggle.
-    - `raw/world_university_rankings/{2011,2012,2013,...}`
-    - We'll have a subfolder for each year in the dataset.
+    - `raw/world_university_rankings`
+    - The dataset we're using separates each year into a different `.csv` file, so we don't need separate folders for each year's dataset in the `raw` source container.
 2. `curated`: The data after it has been cleaned.
     - `curated/world_university_rankings`
 
