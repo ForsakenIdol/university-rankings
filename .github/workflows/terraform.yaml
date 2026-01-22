@@ -38,6 +38,11 @@ jobs:
                 tenant-id: ${{ secrets.AZURE_TENANT_ID }}
                 subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+            - name: Install sqlcmd Client Utility
+              uses: potatoqualitee/mssqlsuite@v1.11
+              with:
+                install: sqlclient
+
             - name: Initialize and validate
               run: |
                 terraform init
