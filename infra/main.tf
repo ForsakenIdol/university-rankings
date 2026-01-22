@@ -3,3 +3,22 @@ resource "azurerm_resource_group" "resource_group" {
   location = "Australia East"
 }
 
+resource "azurerm_storage_account" "raw_and_curated_storage_account" {
+  name                     = "tfuniversityrankings"
+  resource_group_name      = azurerm_resource_group.resource_group.name
+  location                 = azurerm_resource_group.resource_group.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+}
+
+resource "azurerm_storage_container" "raw_data_container" {
+  name                  = "raw"
+  storage_account_id    = azurerm_storage_account.raw_and_curated_storage_account.id
+  container_access_type = "container"
+}
+
+resource "azurerm_storage_container" "curated_data_container" {
+  name                  = "curated"
+  storage_account_id    = azurerm_storage_account.raw_and_curated_storage_account.id
+  container_access_type = "container"
+}
