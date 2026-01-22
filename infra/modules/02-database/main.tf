@@ -16,7 +16,6 @@ resource "azurerm_mssql_database" "mssql_database" {
     collation = "SQL_Latin1_General_CP1_CI_AS"
     max_size_gb = 2
     sku_name = "GP_S_Gen5_1"
-    license_type = "LicenseIncluded" # Database will come with a license; best when you don't have a license yet
 }
 
 # Bootstrap database
