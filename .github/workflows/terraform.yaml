@@ -7,6 +7,9 @@ on:
 jobs:
     check-and-apply-infra-changes:
         runs-on: ubuntu-22.04
+        defaults:
+          run:
+            working-directory: infra
         steps:
             - name: Checkout repository
               uses: actions/checkout@v6
@@ -15,3 +18,18 @@ jobs:
               run: |
                 ls -la
                 tree
+
+            - name: Terraform Cloud Auth
+              uses: hashicorp/setup-terraform@v3.1.2
+              with:
+                terraform_version: "1.14.3"
+                # `cli_config_credentials_hostname` defauls to `app.terraform.io`
+                cli_config_credentials_token: ${{ secrets.TERRAFORM_API_TOKEN }}
+            
+            - name: Initialize and validate
+              run: |
+                terraform init
+                terraform validate
+
+            - name: Create plan
+              run: terraform plan
