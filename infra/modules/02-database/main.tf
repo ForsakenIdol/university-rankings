@@ -37,7 +37,7 @@ resource "azurerm_mssql_database" "mssql_database" {
   sku_name                    = "GP_S_Gen5_1"
 }
 
-# Bootstrap database
+# Bootstrap database by running the init.sql script to create the rankings table
 resource "null_resource" "initialize_database" {
   depends_on = [azurerm_mssql_database.mssql_database]
 
