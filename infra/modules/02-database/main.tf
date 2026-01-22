@@ -33,11 +33,11 @@ resource "null_resource" "initialize_database" {
     provisioner "local-exec" {
         # EOC: End of Command
         command = <<EOC
-sqlcmd ^
-  -S ${azurerm_mssql_server.sql_server.name}.database.windows.net ^
-  -d ${azurerm_mssql_database.mssql_database.name} ^
-  -U ${var.database_admin_username} ^
-  -P "${var.database_admin_password}" ^
+sqlcmd \
+  -S ${azurerm_mssql_server.sql_server.name}.database.windows.net \
+  -d ${azurerm_mssql_database.mssql_database.name} \
+  -U ${var.database_admin_username} \
+  -P "${var.database_admin_password}" \
   -i "${path.module}/scripts/init.sql"
 EOC
     }
