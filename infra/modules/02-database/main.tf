@@ -15,7 +15,7 @@ resource "azurerm_mssql_database" "mssql_database" {
 
     collation = "SQL_Latin1_General_CP1_CI_AS"
     auto_pause_delay_in_minutes = -1 # Disable auto-pause for this serverless database
-    min_size = 0.5
+    min_capacity = 0.5
     max_size_gb = 2
     sku_name = "GP_S_Gen5_1"
 }
