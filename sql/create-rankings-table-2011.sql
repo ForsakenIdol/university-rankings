@@ -10,10 +10,10 @@
 DROP TABLE IF EXISTS rankings;
 CREATE TABLE rankings(
     rank_order INT,
-    rank INT,
+    rank VARCHAR(10),
     name VARCHAR(128),
-    scores_overall FLOAT,
-    scores_overall_rank INT,
+    scores_overall FLOAT NULL,
+    scores_overall_rank INT NULL,
     scores_teaching FLOAT NULL,
     scores_teaching_rank INT NULL,
     scores_international_outlook FLOAT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE rankings(
     subjects_offered NVARCHAR(MAX) NULL,
     closed BIT NULL,
     unaccredited BIT NULL,
-    PRIMARY KEY (scores_overall, scores_overall_rank)
+    PRIMARY KEY (name)
 );
 
 -- Other useful commands
