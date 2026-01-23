@@ -28,3 +28,17 @@ jobs:
 
             - name: Check working directory
               run: ls -l
+
+            - name: Get storage account info
+              run: |
+                STORAGEACCOUNT=$(az storage account list --query "[?starts_with(name, 'tfuniversityrankings')]" | jq -r ".[0]")
+                STORAGE_ACCOUNT_URL=$(echo "$STORAGEACCOUNT" | jq -r ".primaryEndpoints.blob")
+                ACCOUNT_NAME=$(echo "$STORAGEACCOUNT" | jq -r ".name")
+                RAW_CONTAINER=$(az storage container list --account-name "$ACCOUNT_NAME" --query "[?name=='raw']" 2>/dev/null | jq -r ".[0].name")
+                RAW_ENDPOINT_URL=$STORAGE_ACCOUNT_URL$RAW_CONTAINER
+                echo "Raw dataset folder storage endpoint: $RAW_ENDPOINT_URL"
+                echo "RAW_ENDPOINT_URL=$RAW_ENDPOINT_URL" >> "$GITHUB_ENV"
+            
+            - name: Sync raw dataset with azcopy
+              run: |
+                azcopy sync . "$RAW_ENDPOINT_URL" --delete-destination=true
