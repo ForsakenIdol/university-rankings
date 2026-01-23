@@ -43,3 +43,4 @@ Example use case: Import a .csv file from Azure Blob Storage to Azure SQL.
     - Then, to actually execute the data flow, we need to add it to a pipeline, like any other resource.
 - Don't delete the pipeline that was created via ClickOps! Use it as a reference when creating the Terraform stuff in another resource group.
 - VARCHAR without an explicit size has a default length of 1 character in SQL Server.
+- Arrays in the Data Flow Derived Column modifier's expression builder are **1-indexed**. This means the first element is accessible at index 1, **not** index 0.

@@ -41,5 +41,16 @@ CREATE TABLE rankings(
 SELECT COUNT(*) FROM [dbo].[rankings];
 SELECT TOP 10 * FROM [dbo].[rankings] ORDER BY rank ASC;
 SELECT name FROM [dbo].[rankings] WHERE rank = 6;
-SELECT ranking_year, COUNT(*) AS total_record_count FROM [dbo].[rankings] GROUP BY ranking_year;
+SELECT ranking_year, COUNT(*) AS total_record_count FROM [dbo].[rankings] GROUP BY ranking_year ORDER BY ranking_year ASC;
 
+SELECT
+    stats_number_students,
+    stats_student_staff_ratio,
+    stats_pc_intl_students,
+    stats_female_male_ratio
+FROM [dbo].[rankings] WHERE ranking_year = 2021
+ORDER BY scores_overall_rank ASC;
+
+
+
+-- csvcut -c stats_number_students,stats_student_staff_ratio,stats_pc_intl_students,stats_female_male_ratio 2021_rankings.csv
