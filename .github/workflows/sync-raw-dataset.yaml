@@ -42,3 +42,6 @@ jobs:
             - name: Sync raw dataset with azcopy
               run: |
                 azcopy sync . "$RAW_ENDPOINT_URL" --delete-destination=true
+              env:
+                AZCOPY_AUTO_LOGIN_TYPE: AZCLI
+                AZCOPY_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
