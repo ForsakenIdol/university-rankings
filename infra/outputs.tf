@@ -58,4 +58,12 @@ output "data_factory_sql_database_link_name" {
 
 # 04-input-output-datasets
 
+output "input_csv_dataset_name" {
+    value = module.input_output_datasets.input_csv_dataset_name
+}
 
+output "output_sql_dataset_name" {
+    value = module.input_output_datasets.output_sql_dataset_name
+}
+
+# 05-data-flow

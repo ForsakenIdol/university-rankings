@@ -1,0 +1,79 @@
+parameters{
+	RankingYear as integer
+}
+source(output(
+		rank_order as integer,
+		rank as string,
+		name as string,
+		scores_overall as float,
+		scores_overall_rank as integer,
+		scores_teaching as float,
+		scores_teaching_rank as integer,
+		scores_research as float,
+		scores_research_rank as integer,
+		scores_citations as float,
+		scores_citations_rank as integer,
+		scores_industry_income as float,
+		scores_industry_income_rank as integer,
+		scores_international_outlook as float,
+		scores_international_outlook_rank as integer,
+		location as string,
+		stats_number_students as integer '###,###',
+		stats_student_staff_ratio as float,
+		stats_pc_intl_students as float '###.##%',
+		stats_female_male_ratio as string,
+		aliases as string,
+		subjects_offered as string,
+		closed as boolean,
+		unaccredited as boolean
+	),
+	allowSchemaDrift: true,
+	validateSchema: false,
+	ignoreNoFilesFound: false) ~> rawData
+rawData derive(ranking_year = toInteger($RankingYear),
+		stats_female_male_ratio = case(
+  trim(stats_female_male_ratio) == '' || isNull(stats_female_male_ratio),
+
+    toFloat(null()),
+    
+    toFloat(split(trim(replace(stats_female_male_ratio, ' : ', ':')), ':')[1])
+    /
+    toFloat(split(trim(replace(stats_female_male_ratio, ' : ', ':')), ':')[2])
+)) ~> populateAndMutateColumns
+populateAndMutateColumns sink(allowSchemaDrift: false,
+	validateSchema: false,
+	input(
+		ranking_year as integer,
+		rank_order as integer,
+		rank as string,
+		name as string,
+		scores_overall as double,
+		scores_overall_rank as integer,
+		scores_teaching as double,
+		scores_teaching_rank as integer,
+		scores_international_outlook as double,
+		scores_international_outlook_rank as integer,
+		scores_industry_income as double,
+		scores_industry_income_rank as integer,
+		scores_research as double,
+		scores_research_rank as integer,
+		scores_citations as double,
+		scores_citations_rank as integer,
+		location as string,
+		stats_number_students as integer,
+		stats_student_staff_ratio as double,
+		stats_pc_intl_students as double,
+		stats_female_male_ratio as double,
+		aliases as string,
+		subjects_offered as string,
+		closed as boolean,
+		unaccredited as boolean
+	),
+	deletable:false,
+	insertable:true,
+	updateable:false,
+	upsertable:false,
+	format: 'table',
+	skipDuplicateMapInputs: true,
+	skipDuplicateMapOutputs: true,
+	errorHandlingOption: 'stopOnFirstError') ~> sqlData
