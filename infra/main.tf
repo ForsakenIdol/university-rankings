@@ -32,3 +32,10 @@ module "data_factory_skeleton" {
   sql_server_fdqn = module.mssql_database.mssql_server_fdqn
   database_name = module.mssql_database.mssql_database_name
 }
+
+module "input_output_datasets" {
+  source = "./modules/04-input-output-datasets"
+
+  data_factory_id = module.data_factory_skeleton.data_factory_id
+  blob_storage_link_name = module.data_factory_skeleton.blob_storage_link_name
+}

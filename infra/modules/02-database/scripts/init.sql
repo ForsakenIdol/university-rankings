@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS rankings;
 CREATE TABLE rankings(
+    ranking_year INT,                   -- This column needs to be populated using the "PipelineProcessingYear" parameter.
     rank_order INT,
     rank VARCHAR(10),
     name VARCHAR(128),
@@ -16,9 +17,15 @@ CREATE TABLE rankings(
     scores_citations FLOAT NULL,
     scores_citations_rank INT NULL,
     location VARCHAR(128) NULL,
+    -- Some of the following columns may require transformation from the input dataset before being stored.
+    stats_number_students INT NULL,        -- This column is expressed as a string representing a comma-separated number.
+    stats_student_staff_ratio FLOAT NULL,  -- This column is expressed as a standard float.
+    stats_pc_intl_students FLOAT NULL,     -- This column is expressed with the percentage '%' sign.
+    stats_female_male_ratio FLOAT NULL,    -- This column is expressed as a colon-separated ratio, e.g. `61 : 39`.
+
     aliases VARCHAR(512) NULL,
     subjects_offered NVARCHAR(MAX) NULL,
     closed BIT NULL,
     unaccredited BIT NULL,
-    PRIMARY KEY (name)
+    PRIMARY KEY (name, ranking_year)
 );
