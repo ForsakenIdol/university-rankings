@@ -67,3 +67,10 @@ output "output_sql_dataset_name" {
 }
 
 # 05-data-flow
+
+output "data_flow_name" {
+    value = module.data_flow.data_flow_name
+}
+
+# 06-pipelines
+
