@@ -1,3 +1,4 @@
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account
 resource "azurerm_storage_account" "raw_and_curated_storage_account" {
   name                     = "tfuniversityrankings"
   resource_group_name      = var.resource_group_name
