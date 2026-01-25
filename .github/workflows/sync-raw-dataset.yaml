@@ -4,7 +4,7 @@ on:
         branches:
             - master
         paths:
-            - raw
+            - 'raw/**'
 
 permissions:
     id-token: write
