@@ -41,3 +41,11 @@ output "data_factory_blob_storage_link_id" {
 output "data_factory_sql_server_link_id" {
     value = module.data_factory_skeleton.sql_server_link_id
 }
+
+output "data_factory_blob_storage_link_name" {
+    value = module.data_factory_skeleton.blob_storage_link_name
+}
+
+output "data_factory_sql_server_link_name" {
+    value = module.data_factory_skeleton.sql_server_link_name
+}
