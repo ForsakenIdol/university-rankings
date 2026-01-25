@@ -14,14 +14,14 @@ output "blob_storage_link_id" {
     value = azurerm_data_factory_linked_service_azure_blob_storage.blob_storage_link.id
 }
 
-output "sql_server_link_id" {
-    value = azurerm_data_factory_linked_service_sql_server.sql_server_link.id
+output "sql_database_link_id" {
+    value = azurerm_data_factory_linked_service_azure_sql_database.sql_database_link.id
 }
 
 output "blob_storage_link_name" {
     value = azurerm_data_factory_linked_service_azure_blob_storage.blob_storage_link.name
 }
 
-output "sql_server_link_name" {
-    value = azurerm_data_factory_linked_service_sql_server.sql_server_link.name
+output "sql_database_link_name" {
+    value = azurerm_data_factory_linked_service_azure_sql_database.sql_database_link.name
 }

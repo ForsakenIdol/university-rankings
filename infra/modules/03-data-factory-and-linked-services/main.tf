@@ -21,8 +21,8 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "blob_storage_
     connection_string = var.storage_account_primary_connection_string
 }
 
-resource "azurerm_data_factory_linked_service_sql_server" "sql_server_link" {
-    name = "tf-university-rankings-sql-server-link"
+resource "azurerm_data_factory_linked_service_azure_sql_database" "sql_database_link" {
+    name = "tf-university-rankings-sql-database-link"
     data_factory_id = azurerm_data_factory.data_factory.id
     # Reference for Encrypt=True and TrustServerCertificate=False: https://learn.microsoft.com/en-us/azure/azure-sql/database/security-overview?source=recommendations&view=azuresql#information-protection-and-encryption
     connection_string = "Data Source=${var.sql_server_fdqn};Initial Catalog=${var.database_name};User ID=${var.database_admin_username};Password=${var.database_admin_password};Encrypt=True;TrustServerCertificate=False"

@@ -1,5 +1,5 @@
-resource "azurerm_data_factory_dataset_azure_blob" "input_dataset_blob" {
-    name = "tf_university_rankings_input_dataset_blob"
+resource "azurerm_data_factory_dataset_delimited_text" "input_dataset_delimited_text" {
+    name = "tf_university_rankings_input_dataset_delimited_text"
     data_factory_id = var.data_factory_id
     linked_service_name = var.blob_storage_link_name
     
@@ -8,17 +8,24 @@ resource "azurerm_data_factory_dataset_azure_blob" "input_dataset_blob" {
         CSVFileName = "2021_rankings.csv" 
     }
 
-    path = "raw"
-    filename = "@dataset().CSVFileName"
+    azure_blob_storage_location {
+        container = "raw"
+        filename = "@dataset().CSVFileName"
+    }
+
+    column_delimiter = ","
+    first_row_as_header = true
 
 }
 
-resource "azurerm_data_factory_dataset_sql_server_table" "output_dataset_table" {
+resource "azurerm_data_factory_dataset_azure_sql_table" "output_dataset_table" {
     name = "tf-university-rankings-output-dataset-table"
     data_factory_id = var.data_factory_id
-    linked_service_name = var.sql_server_link_name
+    linked_service_id = var.sql_database_link_id
 
-    table_name = "dbo.rankings" # `dbo` is the schema, `rankings` is the table name
+    # `dbo` is the schema, `rankings` is the table name
+    schema = "dbo"
+    table = "rankings"
     
     dynamic "schema_column" {
         # The local parameters are defined in `locals.tf`
