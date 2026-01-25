@@ -38,4 +38,5 @@ module "input_output_datasets" {
 
   data_factory_id = module.data_factory_skeleton.data_factory_id
   blob_storage_link_name = module.data_factory_skeleton.blob_storage_link_name
+  sql_server_link_name = module.data_factory_skeleton.sql_server_link_name
 }
