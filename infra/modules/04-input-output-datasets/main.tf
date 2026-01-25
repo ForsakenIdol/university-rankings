@@ -1,5 +1,5 @@
 resource "azurerm_data_factory_dataset_azure_blob" "input_dataset_blob" {
-    name = "tf-university-rankings-input-dataset-blob"
+    name = "tf_university_rankings_input_dataset_blob"
     data_factory_id = var.data_factory_id
     linked_service_name = var.blob_storage_link_name
     
