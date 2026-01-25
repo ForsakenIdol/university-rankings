@@ -25,7 +25,8 @@ module "data_factory_skeleton" {
   resource_group_name     = azurerm_resource_group.resource_group.name
   resource_group_location = azurerm_resource_group.resource_group.location
 
-  storage_account_primary_connection_string = module.storage_account.primary_connection_string
+  storage_account_name = module.storage_account.raw_and_curated_storage_account_name
+  storage_account_primary_access_key = module.storage_account.primary_access_key
 
   database_admin_username = var.database_admin_username
   database_admin_password = var.database_admin_password
@@ -38,7 +39,7 @@ module "input_output_datasets" {
 
   data_factory_id = module.data_factory_skeleton.data_factory_id
   blob_storage_link_name = module.data_factory_skeleton.blob_storage_link_name
-  sql_database_link_id = module.data_factory_skeleton.sql_database_link_id
+  sql_server_link_name = module.data_factory_skeleton.sql_database_link_name
 }
 
 module "data_flow" {

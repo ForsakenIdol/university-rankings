@@ -1,5 +1,5 @@
 resource "azurerm_data_factory_data_flow" "data_flow" {
-    name = "tf-university-rankings-data-flow"
+    name = "tf_university_rankings_data_flow"
     data_factory_id  = var.data_factory_id
 
     source {

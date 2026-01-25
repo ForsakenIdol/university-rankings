@@ -3,5 +3,5 @@ output "input_csv_dataset_name" {
 }
 
 output "output_sql_dataset_name" {
-    value = azurerm_data_factory_dataset_azure_sql_table.output_dataset_table.name
+    value = azurerm_data_factory_dataset_sql_server_table.output_dataset_table.name
 }
