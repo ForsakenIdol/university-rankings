@@ -7,6 +7,7 @@ The raw data for this project can be found in the `raw/` folder of this reposito
 ## Repository Layout
 
 - `.github/`: Contains workflow integrations for running Terraform commands to spin up the project, as well as a dedicated workflow for running `azcopy` to sync the `raw` dataset up to Azure Blob Storage.
+- `compose/`: Docker Compose scripts for building dashboards - see the **Dashboards** section below.
 - `infra/`: The Terraform code required to provision Azure project resources.
 - `misc./`: Architecture diagrams (see next section) and notes I (ForsakenIdol) took while doing this project.
 - `raw/`: The raw CSV files that form the dataset for this project, pulled directly from Kaggle (link above).
@@ -44,3 +45,9 @@ Note that the `ForEach` driver pipeline currently doesn't have an automatic trig
     <image src="misc./diagrams/example-driver-pipeline-full-run.png"
         alt="Driver Pipeline Execution"/>
 </p>
+
+## Dashboards
+
+With the architecture up and running, and once the pipeline has been triggered successfully, you can use [**Metabase**](https://hub.docker.com/r/metabase/metabase) to build query dashboards from the data. The `compose/` folder in this repository contains a file for launching Metabase using Docker Compose. Simply run `docker compose -f metabase.yaml up` to start the Metabase container. The dashboard will be available at `localhost:3000` or `127.0.0.1:3000` in a browser; you'll need to do some basic setup (this is all local to the container, Metabase isn't sending any data anywhere so feel free to fudge values as you see fit), then you'll get to the page where you must configure the connection to your Azure MSSQL database.
+
+Once you've configured your University Rankings database, you're ready to start querying your data.
