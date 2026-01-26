@@ -37,3 +37,10 @@ If you fork this repository into your own GitHub account and want to use the wor
 - Your `AZURE_CLIENT_ID` and `AZURE_TENANT_ID`, which correspond to a user-assigned **managed identity** that you can use to give the workflow permission to launch resources into your Microsoft Azure account. Note that creating the identity is not enough; you must also allow GitHub to assume the identity by configuring its **federated credentials**.
 
 You can also clone the repository locally and run Terraform commands from the `infra/` folder.
+
+Note that the `ForEach` driver pipeline currently doesn't have an automatic trigger. You'll need to "Trigger now" with all the data in place to get it to run. A full end-to-end run of the pipeline shouldn't take more than 10 minutes.
+
+<p align="center">
+    <image src="misc./diagrams/example-driver-pipeline-full-run.png"
+        alt="Driver Pipeline Execution"/>
+</p>
