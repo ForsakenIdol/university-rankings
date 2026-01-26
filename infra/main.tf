@@ -4,14 +4,14 @@ resource "azurerm_resource_group" "resource_group" {
 }
 
 module "storage_account" {
-  source                  = "./modules/01-blob-storage"
-  
+  source = "./modules/01-blob-storage"
+
   resource_group_name     = azurerm_resource_group.resource_group.name
   resource_group_location = azurerm_resource_group.resource_group.location
 }
 
 module "mssql_database" {
-  source                  = "./modules/02-database"
+  source = "./modules/02-database"
 
   resource_group_name     = azurerm_resource_group.resource_group.name
   resource_group_location = azurerm_resource_group.resource_group.location
@@ -25,34 +25,34 @@ module "data_factory_skeleton" {
   resource_group_name     = azurerm_resource_group.resource_group.name
   resource_group_location = azurerm_resource_group.resource_group.location
 
-  storage_account_name = module.storage_account.raw_and_curated_storage_account_name
+  storage_account_name               = module.storage_account.raw_and_curated_storage_account_name
   storage_account_primary_access_key = module.storage_account.primary_access_key
 
   database_admin_username = var.database_admin_username
   database_admin_password = var.database_admin_password
-  sql_server_fdqn = module.mssql_database.mssql_server_fdqn
-  database_name = module.mssql_database.mssql_database_name
+  sql_server_fdqn         = module.mssql_database.mssql_server_fdqn
+  database_name           = module.mssql_database.mssql_database_name
 }
 
 module "input_output_datasets" {
   source = "./modules/04-input-output-datasets"
 
-  data_factory_id = module.data_factory_skeleton.data_factory_id
+  data_factory_id        = module.data_factory_skeleton.data_factory_id
   blob_storage_link_name = module.data_factory_skeleton.blob_storage_link_name
-  sql_server_link_name = module.data_factory_skeleton.sql_database_link_name
+  sql_server_link_name   = module.data_factory_skeleton.sql_database_link_name
 }
 
 module "data_flow" {
   source = "./modules/05-data-flow"
 
-  data_factory_id = module.data_factory_skeleton.data_factory_id
+  data_factory_id         = module.data_factory_skeleton.data_factory_id
   csv_dataset_source_name = module.input_output_datasets.input_csv_dataset_name
-  sql_dataset_sink_name = module.input_output_datasets.output_sql_dataset_name
+  sql_dataset_sink_name   = module.input_output_datasets.output_sql_dataset_name
 }
 
 module "pipelines" {
   source = "./modules/06-pipelines"
 
   data_factory_id = module.data_factory_skeleton.data_factory_id
-  data_flow_name = module.data_flow.data_flow_name
+  data_flow_name  = module.data_flow.data_flow_name
 }

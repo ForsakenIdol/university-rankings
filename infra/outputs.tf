@@ -29,47 +29,47 @@ output "mssql_database_name" {
 # 03-data-factory-and-linked-services
 
 output "data_factory_name" {
-    value = module.data_factory_skeleton.data_factory_name
+  value = module.data_factory_skeleton.data_factory_name
 }
 
 output "data_factory_id" {
-    value = module.data_factory_skeleton.data_factory_id
+  value = module.data_factory_skeleton.data_factory_id
 }
 
 output "data_factory_identity_block" {
-    value = module.data_factory_skeleton.data_factory_identity
+  value = module.data_factory_skeleton.data_factory_identity
 }
 
 output "data_factory_blob_storage_link_id" {
-    value = module.data_factory_skeleton.blob_storage_link_id
+  value = module.data_factory_skeleton.blob_storage_link_id
 }
 
 output "data_factory_sql_database_link_id" {
-    value = module.data_factory_skeleton.sql_database_link_id
+  value = module.data_factory_skeleton.sql_database_link_id
 }
 
 output "data_factory_blob_storage_link_name" {
-    value = module.data_factory_skeleton.blob_storage_link_name
+  value = module.data_factory_skeleton.blob_storage_link_name
 }
 
 output "data_factory_sql_database_link_name" {
-    value = module.data_factory_skeleton.sql_database_link_name
+  value = module.data_factory_skeleton.sql_database_link_name
 }
 
 # 04-input-output-datasets
 
 output "input_csv_dataset_name" {
-    value = module.input_output_datasets.input_csv_dataset_name
+  value = module.input_output_datasets.input_csv_dataset_name
 }
 
 output "output_sql_dataset_name" {
-    value = module.input_output_datasets.output_sql_dataset_name
+  value = module.input_output_datasets.output_sql_dataset_name
 }
 
 # 05-data-flow
 
 output "data_flow_name" {
-    value = module.data_flow.data_flow_name
+  value = module.data_flow.data_flow_name
 }
 
 # 06-pipelines
