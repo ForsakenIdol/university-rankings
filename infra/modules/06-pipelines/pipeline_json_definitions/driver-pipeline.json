@@ -1,62 +1,40 @@
-{
-    "activities": [
-        {
-            "name": "ForEachYear",
-            "type": "ForEach",
-            "dependsOn": [],
-            "userProperties": [],
-            "typeProperties": {
-                "items": {
-                    "value": "@pipeline().parameters.AllTheYears",
-                    "type": "Expression"
-                },
-                "isSequential": false,
-                "activities": [
-                    {
-                        "name": "Execute Pipeline1",
-                        "type": "ExecutePipeline",
-                        "dependsOn": [],
-                        "policy": {
-                            "secureInput": false
+[
+    {
+        "name": "ForEachYear",
+        "type": "ForEach",
+        "dependsOn": [],
+        "userProperties": [],
+        "typeProperties": {
+            "items": {
+                "value": "@createArray(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)",
+                "type": "Expression"
+            },
+            "isSequential": false,
+            "activities": [
+                {
+                    "name": "Execute Pipeline1",
+                    "type": "ExecutePipeline",
+                    "dependsOn": [],
+                    "policy": {
+                        "secureInput": false
+                    },
+                    "userProperties": [],
+                    "typeProperties": {
+                        "pipeline": {
+                            "referenceName": "${wrapper_pipeline_name}",
+                            "type": "PipelineReference"
                         },
-                        "userProperties": [],
-                        "typeProperties": {
-                            "pipeline": {
-                                "referenceName": "${wrapper_pipeline_name}",
-                                "type": "PipelineReference"
-                            },
-                            "waitOnCompletion": true,
-                            "parameters": {
-                                "PipelineProcessingYear": {
-                                    "value": "@item()",
-                                    "type": "Expression"
-                                }
+                        "waitOnCompletion": true,
+                        "parameters": {
+                            "PipelineProcessingYear": {
+                                "value": "@item()",
+                                "type": "Expression"
                             }
                         }
                     }
-                ]
-            }
-        }
-    ],
-    "parameters": {
-        "AllTheYears": {
-            "type": "array",
-            "defaultValue": [
-                2011,
-                2012,
-                2013,
-                2014,
-                2015,
-                2016,
-                2017,
-                2018,
-                2019,
-                2020,
-                2021,
-                2022,
-                2023,
-                2024
+                }
             ]
         }
     }
-}
+]
+
