@@ -15,7 +15,7 @@ output "blob_storage_link_id" {
 }
 
 output "sql_database_link_id" {
-    value = azurerm_data_factory_linked_service_azure_sql_database.sql_database_link.id
+    value = azurerm_data_factory_linked_service_sql_server.sql_server_link.id
 }
 
 output "blob_storage_link_name" {
@@ -23,5 +23,5 @@ output "blob_storage_link_name" {
 }
 
 output "sql_database_link_name" {
-    value = azurerm_data_factory_linked_service_azure_sql_database.sql_database_link.name
+    value = azurerm_data_factory_linked_service_sql_server.sql_server_link.name
 }
