@@ -19,6 +19,8 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "blob_storage_
     name = "tf-university-rankings-blob-storage-link"
     data_factory_id = azurerm_data_factory.data_factory.id
     connection_string = "DefaultEndpointsProtocol=https;AccountName=${var.storage_account_name};AccountKey=${var.storage_account_primary_access_key};EndpointSuffix=core.windows.net"
+    storage_kind = "StorageV2"
+    use_managed_identity = true
 }
 
 resource "azurerm_data_factory_linked_service_azure_sql_database" "sql_database_link" {
