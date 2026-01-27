@@ -72,5 +72,69 @@
         ],
         "scriptBlockExecutionTimeout": "02:00:00"
     }
-  }
+  },
+    {
+        "name": "log_pipeline_run",
+        "type": "SqlServerStoredProcedure",
+        "dependsOn": [
+            {
+                "activity": "CSVToSQLDataFlow",
+                "dependencyConditions": [
+                    "Completed"
+                ]
+            }
+        ],
+        "policy": {
+            "timeout": "0.12:00:00",
+            "retry": 0,
+            "retryIntervalInSeconds": 30,
+            "secureOutput": false,
+            "secureInput": false
+        },
+        "userProperties": [],
+        "typeProperties": {
+            "storedProcedureName": "[dbo].[LogPipelineRun]",
+            "storedProcedureParameters": {
+                "ProcessedYear": {
+                    "value": {
+                        "value": "@{pipeline().parameters.PipelineProcessingYear}",
+                        "type": "Expression"
+                    },
+                    "type": "Int32"
+                },
+                "RunEndUtc": {
+                    "value": {
+                        "value": "@{utcNow()}",
+                        "type": "Expression"
+                    },
+                    "type": "DateTime"
+                },
+                "RunId": {
+                    "value": {
+                        "value": "@{pipeline().RunId}",
+                        "type": "Expression"
+                    },
+                    "type": "String"
+                },
+                "RunStartUtc": {
+                    "value": {
+                        "value": "@{pipeline().TriggerTime}",
+                        "type": "Expression"
+                    },
+                    "type": "DateTime"
+                },
+                "Status": {
+                    "value": {
+                        "value": "@{activity('CSVToSQLDataFlow').status}",
+                        "type": "Expression"
+                    },
+                    "type": "String"
+                }
+            }
+        },
+        "linkedServiceName": {
+            "referenceName": "${sql_database_linked_service_name}",
+            "type": "LinkedServiceReference"
+        }
+    }
 ]
