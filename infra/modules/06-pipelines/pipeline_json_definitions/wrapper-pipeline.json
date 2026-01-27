@@ -65,7 +65,7 @@
             {
                 "type": "Query",
                 "text": {
-                    "value": "DELETE FROM rankings WHERE year = @{pipeline().parameters.PipelineProcessingYear};",
+                    "value": "DELETE FROM rankings WHERE ranking_year = @{pipeline().parameters.PipelineProcessingYear};",
                     "type": "Expression"
                 }
             }
