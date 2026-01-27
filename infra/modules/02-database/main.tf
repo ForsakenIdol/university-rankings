@@ -55,7 +55,48 @@ sqlcmd \
   -d ${azurerm_mssql_database.mssql_database.name} \
   -U ${var.database_admin_username} \
   -P "${var.database_admin_password}" \
-  -i "${path.module}/scripts/init.sql"
+  -i "${path.module}/scripts/01-init.sql"
+EOC
+  }
+
+}
+
+resource "null_resource" "create_pipeline_runs_logging_table" {
+  depends_on = [ null_resource.initialize_database ]
+
+  triggers = {
+    init_script_hash = filemd5("${path.module}/scripts/02-create-pipeline-runs-logging-table.sql")
+  }
+
+  provisioner "local-exec" {
+    command = <<EOC
+sqlcmd \
+  -S ${azurerm_mssql_server.sql_server.name}.database.windows.net \
+  -d ${azurerm_mssql_database.mssql_database.name} \
+  -U ${var.database_admin_username} \
+  -P "${var.database_admin_password}" \
+  -i "${path.module}/scripts/02-create-pipeline-runs-logging-table.sql"
+EOC
+  }
+
+}
+
+resource "null_resource" "create_pipeline_logging_stored_procedure" {
+  depends_on = [ null_resource.create_pipeline_runs_logging_table ]
+
+  triggers = {
+    init_script_hash = filemd5("${path.module}/scripts/03-create-pipeline-run-logging-stored-procedure.sql")
+  }
+
+  provisioner "local-exec" {
+    # EOC: End of Command
+    command = <<EOC
+sqlcmd \
+  -S ${azurerm_mssql_server.sql_server.name}.database.windows.net \
+  -d ${azurerm_mssql_database.mssql_database.name} \
+  -U ${var.database_admin_username} \
+  -P "${var.database_admin_password}" \
+  -i "${path.module}/scripts/03-create-pipeline-run-logging-stored-procedure.sql"
 EOC
   }
 
