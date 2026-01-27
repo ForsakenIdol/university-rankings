@@ -43,7 +43,14 @@ jobs:
             
             - name: Sync raw dataset with azcopy
               run: |
-                azcopy sync . "$RAW_ENDPOINT_URL" --delete-destination=true
+                azcopy sync . "$RAW_ENDPOINT_URL" --delete-destination=true --include-pattern *.csv
               env:
                 AZCOPY_AUTO_LOGIN_TYPE: AZCLI
                 AZCOPY_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+
+            - name: Trigger pipeline to ingest data
+              run: |
+                RESOURCEGROUP=$(az group list --query "[?contains(name,'university-rankings')]" | jq -r ".[0].name")
+                DATAFACTORY=$(az datafactory list --resource-group "$RESOURCEGROUP" | jq -r ".[0].name")
+                DRIVERPIPELINE=$(az datafactory pipeline list --factory-name "$DATAFACTORY" --resource-group "$RESOURCEGROUP" --query "[?contains(name, 'driver')]" | jq -r ".[0].name")
+                az datafactory pipeline create-run --factory-name "$DATAFACTORY" --pipeline-name "$DRIVERPIPELINE" --resource-group "$RESOURCEGROUP"
