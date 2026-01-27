@@ -44,7 +44,7 @@ resource "null_resource" "initialize_database" {
   triggers = {
     # When we make edits to the SQL script file, we will "re-provision" this null resource,
     # i.e. we'll run the script again.
-    init_script_hash = filemd5("${path.module}/scripts/init.sql")
+    init_script_hash = filemd5("${path.module}/scripts/01-init.sql")
   }
 
   provisioner "local-exec" {
