@@ -2,7 +2,14 @@
   {
     "name": "CSVToSQLDataFlow",
     "type": "ExecuteDataFlow",
-    "dependsOn": [],
+    "dependsOn": [
+      {
+          "activity": "clear_ranking_table_year_entries",
+          "dependencyConditions": [
+              "Succeeded"
+          ]
+      }
+    ],
     "policy": {
       "timeout": "0.00:20:00",
       "retry": 0,
@@ -35,6 +42,35 @@
         "computeType": "General"
       },
       "traceLevel": "Fine"
+    }
+  },
+  {
+    "name": "clear_ranking_table_year_entries",
+    "type": "Script",
+    "dependsOn": [],
+    "policy": {
+        "timeout": "0.12:00:00",
+        "retry": 0,
+        "retryIntervalInSeconds": 30,
+        "secureOutput": false,
+        "secureInput": false
+    },
+    "userProperties": [],
+    "linkedServiceName": {
+        "referenceName": "${sql_database_linked_service_name}",
+        "type": "LinkedServiceReference"
+    },
+    "typeProperties": {
+        "scripts": [
+            {
+                "type": "Query",
+                "text": {
+                    "value": "DELETE FROM rankings WHERE year = @{pipeline().parameters.PipelineProcessingYear};",
+                    "type": "Expression"
+                }
+            }
+        ],
+        "scriptBlockExecutionTimeout": "02:00:00"
     }
   }
 ]

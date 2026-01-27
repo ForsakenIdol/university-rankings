@@ -55,4 +55,5 @@ module "pipelines" {
 
   data_factory_id = module.data_factory_skeleton.data_factory_id
   data_flow_name  = module.data_flow.data_flow_name
+  sql_server_link_name = module.data_factory_skeleton.sql_server_link_name
 }

@@ -10,6 +10,7 @@ resource "azurerm_data_factory_pipeline" "wrapper_pipeline" {
     "${path.module}/pipeline_json_definitions/wrapper-pipeline.json",
     {
       data_flow_name = var.data_flow_name
+      sql_database_linked_service_name = var.sql_server_link_name
     }
   )
 }
