@@ -51,3 +51,22 @@ Note that the `ForEach` driver pipeline currently doesn't have an automatic trig
 With the architecture up and running, and once the pipeline has been triggered successfully, you can use [**Metabase**](https://hub.docker.com/r/metabase/metabase) to build query dashboards from the data. The `compose/` folder in this repository contains a file for launching Metabase using Docker Compose. Simply run `docker compose -f metabase.yaml up` to start the Metabase container. The dashboard will be available at `localhost:3000` or `127.0.0.1:3000` in a browser; you'll need to do some basic setup (this is all local to the container, Metabase isn't sending any data anywhere so feel free to fudge values as you see fit), then you'll get to the page where you must configure the connection to your Azure MSSQL database.
 
 Once you've configured your University Rankings database, you're ready to start querying your data.
+
+## Infracost
+
+With Azure's free trial having expired at the time of writing this section, I need a way to estimate and manage the costs of launching the Azure infrastructure for this project with Terraform. For this, I turn to [Infracost](https://www.infracost.io/). This can be installed very simply on Linux machines with:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
+infracost --version # Should show 0.10.42 or later
+```
+
+We then need to authenticate and complete the rest of the setup.
+
+```sh
+infracost auth login # This login flow is interactive
+infracost configure set api_key MY_KEY # This non-interactively sets the API key for an Infracost account
+
+# After logging in, we can start running Infracost commands.
+infracost breakdown --path=infra # What is the cost of launching the Terraform resources in the infra/ folder?
+```
