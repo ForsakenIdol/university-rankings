@@ -38,3 +38,18 @@ resource "azurerm_data_factory_dataset_sql_server_table" "output_dataset_table" 
   }
 
 }
+
+resource "azurerm_data_factory_dataset_delimited_text" "output_dataset_delimited_text" {
+  name                = "tf_university_rankings_output_dataset_delimited_text"
+  data_factory_id     = var.data_factory_id
+  linked_service_name = var.blob_storage_link_name
+
+  azure_blob_storage_location {
+    container = "curated"
+  }
+
+  column_delimiter    = ","
+  row_delimiter       = "\n"
+  first_row_as_header = true
+
+}

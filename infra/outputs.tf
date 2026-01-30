@@ -66,6 +66,10 @@ output "output_sql_dataset_name" {
   value = module.input_output_datasets.output_sql_dataset_name
 }
 
+output "output_csv_dataset_name" {
+  value = module.input_output_datasets.output_csv_dataset_name
+}
+
 # 05-data-flow
 
 output "data_flow_name" {

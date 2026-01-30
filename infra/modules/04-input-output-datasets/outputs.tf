@@ -5,3 +5,7 @@ output "input_csv_dataset_name" {
 output "output_sql_dataset_name" {
   value = azurerm_data_factory_dataset_sql_server_table.output_dataset_table.name
 }
+
+output "output_csv_dataset_name" {
+  value = azurerm_data_factory_dataset_delimited_text.output_dataset_delimited_text.name
+}
