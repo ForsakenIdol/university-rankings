@@ -48,6 +48,7 @@ module "data_flow" {
   data_factory_id         = module.data_factory_skeleton.data_factory_id
   csv_dataset_source_name = module.input_output_datasets.input_csv_dataset_name
   sql_dataset_sink_name   = module.input_output_datasets.output_sql_dataset_name
+  csv_curated_dataset_sink_name = module.input_output_datasets.output_csv_dataset_name
 }
 
 module "pipelines" {

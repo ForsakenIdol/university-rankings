@@ -77,3 +77,9 @@ populateAndMutateColumns sink(allowSchemaDrift: false,
 	skipDuplicateMapInputs: true,
 	skipDuplicateMapOutputs: true,
 	errorHandlingOption: 'stopOnFirstError') ~> sqlData
+populateAndMutateColumns sink(allowSchemaDrift: true,
+	validateSchema: false,
+	partitionFileNames:[("{$RankingYear}_curated_rankings.csv")],
+	skipDuplicateMapInputs: true,
+	skipDuplicateMapOutputs: true,
+	partitionBy('hash', 1)) ~> curatedData
