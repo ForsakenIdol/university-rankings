@@ -14,5 +14,8 @@ jobs:
                 curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
                 infracost --version
 
+            - name: Authenticate to Infracost
+              run: infracost configure set api_key ${{ secrets.INFRACOST_API_TOKEN }}
+
             - name: Calculate costs
               run: infracost breakdown --path=infra
