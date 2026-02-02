@@ -5,6 +5,8 @@ resource "azurerm_storage_account" "raw_and_curated_storage_account" {
   location                 = var.resource_group_location
   account_tier             = "Standard"
   account_replication_type = "LRS"
+
+  is_hns_enabled = true
 }
 
 resource "azurerm_storage_container" "raw_data_container" {
