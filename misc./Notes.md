@@ -61,3 +61,10 @@ Synapse Analytics needs to be created over a [**Data Lake Storage Gen2**](https:
     - You can't revert the storage account back to using a flat namespace. Once enabled, it stays enabled. However, it doesn't look like this affects existing linked service configurations with Azure Data Factory.
 - DLS Gen2 can be enabled when a storage account is created, or after the storage account is created.
     - The corresponding Terraform setting to do this is `is_hns_enabled` for the `azurerm_storage_account` resource. However, changing this value forces a new resource to be created.
+
+## Azure Synapse
+
+Synapse can connect to the DLS Gen2 endpoint as a linked service. Synapse itself also exposes a **Dedicated SQL endpoint** which we can connect to to run SQL queries and create external data sources from files that we can query over.
+
+- External tables over external data do not support primary key declarations. You must enforce uniqueness further up in the pipeline.
+- The order of columns in an external table must match the loaded data in both name and column order. Azure Synapse Analytics does not match column names; it only loads in the specified order.
