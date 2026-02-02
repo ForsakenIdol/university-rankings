@@ -48,3 +48,16 @@ Terraform graph creation from `infra/` folder:
 ```sh
 tf graph | dot -Tpng > ../misc./diagrams/terraform-infra-graph.png
 ```
+
+## Azure Data Lake Storage (DLS)
+
+*(The term "blob" is actually an acronym in the Big Data space. It stands for "Binary Large Object".)*
+
+Synapse Analytics needs to be created over a [**Data Lake Storage Gen2**](https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-introduction) resource, which is itself built on top of Azure Blob Storage. It seems to build a Data Lake that is backed by Azure Storage, and provides capabilities over the backing blob storage account.
+
+- **DLS Gen2** is not a service by itself; rather, it is a feature [**configured on top of a Storage Account**](https://learn.microsoft.com/en-us/training/modules/introduction-to-azure-data-lake-storage/3-create-data-lake-account).
+    - When the storage account kind is `StorageV2` (general-purpose V2) and the **Hierarchical Namespace** feature is enabled, the storage account itself becomes enabled for DLS Gen2.
+    - The hierarchical namespace feature, when enabled, adds a **true file hierarchy** on top of the object storage, enabling file-system-style operations and fine-grained permissions like ACLs at the directory or file level. This feature also makes the storage account compatible with engines which expect file system semantics, like Spark, or Synapse Analytics.
+    - You can't revert the storage account back to using a flat namespace. Once enabled, it stays enabled. However, it doesn't look like this affects existing linked service configurations with Azure Data Factory.
+- DLS Gen2 can be enabled when a storage account is created, or after the storage account is created.
+    - The corresponding Terraform setting to do this is `is_hns_enabled` for the `azurerm_storage_account` resource. However, changing this value forces a new resource to be created.
