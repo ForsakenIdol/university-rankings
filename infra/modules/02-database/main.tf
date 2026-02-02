@@ -30,9 +30,9 @@ resource "azurerm_mssql_database" "mssql_database" {
   name      = "tf-university-rankings-mssql-database"
   server_id = azurerm_mssql_server.sql_server.id
 
-  collation                   = "SQL_Latin1_General_CP1_CI_AS"
-  max_size_gb                 = 1
-  sku_name                    = "Basic"   # This is no-longer a serverless database
+  collation   = "SQL_Latin1_General_CP1_CI_AS"
+  max_size_gb = 1
+  sku_name    = "Basic" # This is no-longer a serverless database
 }
 
 # Bootstrap database by running the init.sql script to create the rankings table
@@ -60,7 +60,7 @@ EOC
 }
 
 resource "null_resource" "create_pipeline_runs_logging_table" {
-  depends_on = [ null_resource.initialize_database ]
+  depends_on = [null_resource.initialize_database]
 
   triggers = {
     init_script_hash = filemd5("${path.module}/scripts/02-create-pipeline-runs-logging-table.sql")
@@ -80,7 +80,7 @@ EOC
 }
 
 resource "null_resource" "create_pipeline_logging_stored_procedure" {
-  depends_on = [ null_resource.create_pipeline_runs_logging_table ]
+  depends_on = [null_resource.create_pipeline_runs_logging_table]
 
   triggers = {
     init_script_hash = filemd5("${path.module}/scripts/03-create-pipeline-run-logging-stored-procedure.sql")
