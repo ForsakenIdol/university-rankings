@@ -52,6 +52,8 @@ With the architecture up and running, and once the pipeline has been triggered s
 
 Once you've configured your University Rankings database, you're ready to start querying your data.
 
+Note that Metabase uses the `SQL Server` connector to connect to Azure Synapse Analytics, via the Synapse workspace connection string.
+
 ## Infracost
 
 With Azure's free trial having expired at the time of writing this section, I need a way to estimate and manage the costs of launching the Azure infrastructure for this project with Terraform. For this, I turn to [Infracost](https://www.infracost.io/). This can be installed very simply on Linux machines with:
