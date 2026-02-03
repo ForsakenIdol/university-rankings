@@ -21,6 +21,7 @@ locals {
     stats_student_staff_ratio         = "Double"
     stats_pc_intl_students            = "Double"
     stats_female_male_ratio           = "Double"
+    stats_proportion_of_isr           = "Double"
     aliases                           = "String"
     subjects_offered                  = "String"
     closed                            = "Boolean"

@@ -29,6 +29,7 @@ CREATE TABLE rankings(
     stats_student_staff_ratio FLOAT NULL,  -- This column is expressed as a standard float.
     stats_pc_intl_students FLOAT NULL,     -- This column is expressed with the percentage '%' sign.
     stats_female_male_ratio FLOAT NULL,    -- This column is expressed as a colon-separated ratio, e.g. `61 : 39`.
+    stats_proportion_of_isr FLOAT NULL,    -- This column is expressed with the percentage '%' sign.
 
     aliases VARCHAR(512) NULL,
     subjects_offered NVARCHAR(MAX) NULL,
