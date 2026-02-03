@@ -8,6 +8,10 @@ output "raw_and_curated_storage_account_host" {
   value = module.storage_account.raw_and_curated_storage_account_host
 }
 
+output "raw_and_curated_storage_account_id" {
+  value = module.storage_account.raw_and_curated_storage_account_id
+}
+
 # 02-database
 
 output "mssql_server_name" {

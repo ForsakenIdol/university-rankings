@@ -58,3 +58,11 @@ module "pipelines" {
   data_flow_name       = module.data_flow.data_flow_name
   sql_server_link_name = module.data_factory_skeleton.sql_server_link_name
 }
+
+module "synapse_analytics" {
+  source = "./modules/07-synapse-analytics"
+
+  resource_group_name         = azurerm_resource_group.resource_group.name
+  resource_group_location     = azurerm_resource_group.resource_group.location
+  storage_account_id          = module.storage_account.raw_and_curated_storage_account_id
+}
