@@ -82,3 +82,15 @@ output "data_flow_name" {
 
 # 06-pipelines
 
+### N/A
+
+# 07-synapse-analytics
+
+output "synapse_workspace_id" {
+    value = module.synapse_analytics.synapse_workspace_id
+}
+
+output "synapse_serverless_endpoint" {
+    value = module.synapse_analytics.synapse_serverless_endpoint
+}
+

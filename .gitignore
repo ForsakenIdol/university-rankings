@@ -2,3 +2,5 @@
 credentials
 *_curated_rankings.csv
 synapse_tmp/
+rendered_init.sql
+*.log
