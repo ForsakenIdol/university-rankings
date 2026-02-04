@@ -66,3 +66,11 @@ module "synapse_analytics" {
   resource_group_location     = azurerm_resource_group.resource_group.location
   storage_account_id          = module.storage_account.raw_and_curated_storage_account_id
 }
+
+module "databricks" {
+  source = "./modules/08-databricks"
+
+  resource_group_name         = azurerm_resource_group.resource_group.name
+  resource_group_location     = azurerm_resource_group.resource_group.location
+  storage_account_id          = module.storage_account.raw_and_curated_storage_account_id
+}

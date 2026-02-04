@@ -21,3 +21,8 @@ resource "azurerm_storage_container" "curated_data_container" {
   container_access_type = "container"
 }
 
+resource "azurerm_storage_container" "parquet_data_container" {
+  name                  = "parquet"
+  storage_account_id    = azurerm_storage_account.raw_and_curated_storage_account.id
+  container_access_type = "container"
+}

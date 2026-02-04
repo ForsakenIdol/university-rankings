@@ -12,6 +12,10 @@ output "raw_and_curated_storage_account_id" {
   value = module.storage_account.raw_and_curated_storage_account_id
 }
 
+output "raw_and_curated_storage_account_name" {
+  value = module.storage_account.raw_and_curated_storage_account_name
+}
+
 # 02-database
 
 output "mssql_server_name" {
