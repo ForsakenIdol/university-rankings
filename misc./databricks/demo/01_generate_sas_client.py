@@ -60,8 +60,3 @@ print(sas_url)
 # Create a ContainerClient object with SAS authorization from the sas_url we created earlier
 # This client can now interact with the target storage container
 container_client_sas = ContainerClient.from_container_url(container_url=sas_url)
-
-# Methods on the client that we can call
-for entry in dir(container_client_sas):
-    if not entry.startswith("_"):
-        print(entry)

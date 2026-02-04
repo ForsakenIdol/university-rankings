@@ -89,3 +89,4 @@ Then, to actually interact with and get blobs from within the container:
 
 1. The Databricks managed identity needs The **Storage Blob Data Reader** (or above) permissions on the storage account.
 2. The `ContainerSasPermissions` Python block needs to provide `list` permissions for the blobs alongside `read` permissions for the contents of any given blob.
+3. Alternatively, if the workbook needs to write back to the container (e.g. parquet files, gold tables), just use the **Storage Blob Data Contributor** role instead for the mapping.
