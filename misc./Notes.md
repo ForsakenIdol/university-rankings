@@ -75,7 +75,12 @@ The vast majority of what you do in Databricks is in the Databricks portal itsel
 
 - The ClickOps Databricks workspace takes a really long time to deploy, but it does eventually complete.
 
-One of the ways we can authenticate Databricks to an Azure Storage Account container (preferred) or individual blob is to generate a SAS token.
+One of the ways we can authenticate Databricks to an Azure Storage Account container (preferred) or individual blob is to generate a SAS token. This will require a few libraries in Python, so we set the first Python cell to install them:
+
+```sh
+%pip install azure-storage-blob azure-identity
+dbutils.library.restartPython()
+```
 
 - The Databricks managed identity (usually called `dbmanagedidentity` and followed by an application UUID) needs **Storage Blob Delegator** role permissions on the storage account to generate SAS tokens for the given account.
 - These need to be given on the storage account itself to allow the managed identity to perform the necessary functions on it.
