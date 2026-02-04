@@ -98,3 +98,8 @@ output "synapse_serverless_endpoint" {
     value = module.synapse_analytics.synapse_serverless_endpoint
 }
 
+# 08-databricks
+
+output "databricks_workspace_url" {
+  value = module.databricks.databricks_workspace_url
+}
