@@ -68,3 +68,19 @@ Synapse can connect to the DLS Gen2 endpoint as a linked service. Synapse itself
 
 - External tables over external data do not support primary key declarations. You must enforce uniqueness further up in the pipeline.
 - The order of columns in an external table must match the loaded data in both name and column order. Azure Synapse Analytics does not match column names; it only loads in the specified order.
+
+## Databricks
+
+The vast majority of what you do in Databricks is in the Databricks portal itself, and not in the Azure portal. It looks like we'll need to use the [**Databricks Terraform Provider**](https://github.com/databricks/terraform-provider-databricks/blob/main/docs/guides/azure-workspace.md) and configure it to start after and dependent on the [`azurerm_databricks_workspace`](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/databricks_workspace) resource being created.
+
+- The ClickOps Databricks workspace takes a really long time to deploy, but it does eventually complete.
+
+One of the ways we can authenticate Databricks to an Azure Storage Account container (preferred) or individual blob is to generate a SAS token.
+
+- The Databricks managed identity (usually called `dbmanagedidentity` and followed by an application UUID) needs **Storage Blob Delegator** role permissions on the storage account to generate SAS tokens for the given account.
+- These need to be given on the storage account itself to allow the managed identity to perform the necessary functions on it.
+
+Then, to actually interact with and get blobs from within the container:
+
+1. The Databricks managed identity needs The **Storage Blob Data Reader** (or above) permissions on the storage account.
+2. The `ContainerSasPermissions` Python block needs to provide `list` permissions for the blobs alongside `read` permissions for the contents of any given blob.
