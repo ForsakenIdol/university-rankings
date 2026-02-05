@@ -8,6 +8,11 @@ terraform {
       source  = "hashicorp/azurerm"
       version = ">= 4.57.0"
     }
+
+    databricks = {
+      source = "databricks/databricks"
+      version = ">= 1.104.0"
+    }
   }
 
   backend "remote" {
@@ -27,3 +32,9 @@ provider "azurerm" {
   resource_provider_registrations = "none"
   features {}
 }
+
+provider "databricks" {
+  host = module.databricks.databricks_workspace_url
+  azure_workspace_resource_id = module.databricks.databricks_workspace_id
+}
+

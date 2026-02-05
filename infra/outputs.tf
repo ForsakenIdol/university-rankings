@@ -104,6 +104,10 @@ output "databricks_workspace_url" {
   value = module.databricks.databricks_workspace_url
 }
 
+output "databricks_workspace_id" {
+  value = module.databricks.databricks_workspace_id
+}
+
 # 09-databricks-components
 
 
