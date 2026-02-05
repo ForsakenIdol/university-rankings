@@ -74,3 +74,5 @@ module "databricks" {
   resource_group_location     = azurerm_resource_group.resource_group.location
   storage_account_id          = module.storage_account.raw_and_curated_storage_account_id
 }
+
+
