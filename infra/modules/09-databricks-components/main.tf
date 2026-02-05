@@ -1,3 +1,7 @@
+# resource "databricks_service_principal" "managed_identity_mapping" {
+#     application_id = 
+# }
+
 resource "databricks_cluster" "default_cluster" {
     cluster_name = "tf-uni-rankings-default-cluster"
     spark_version = data.databricks_spark_version.latest.id

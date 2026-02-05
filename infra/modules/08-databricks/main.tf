@@ -9,25 +9,22 @@ resource "azurerm_databricks_workspace" "workspace" {
 
 }
 
-data "external" "databricks_managed_identity" {
+data "azurerm_user_assigned_identity" "databricks_managed_identity" {
     depends_on = [ azurerm_databricks_workspace.workspace ]
 
-    program = ["bash", "-c", <<-EOT
-    az identity list --resource-group ${var.databricks_managed_resource_group_name} \
-    --query "[?name=='dbmanagedidentity'] | [0].{principalId: principalId}" --output json
-    EOT
-    ]
+    name = "dbmanagedidentity"
+    resource_group_name = var.databricks_managed_resource_group_name
 }
 
 resource "azurerm_role_assignment" "sas_token_permissions" {
     scope = var.storage_account_id
     role_definition_name = "Storage Blob Delegator"
-    principal_id = data.external.databricks_managed_identity.result.principalId
+    principal_id = data.azurerm_user_assigned_identity.databricks_managed_identity.principal_id
 }
 
 resource "azurerm_role_assignment" "read_and_write_to_storage_account" {
     scope = var.storage_account_id
     role_definition_name = "Storage Blob Data Contributor"
-    principal_id = data.external.databricks_managed_identity.result.principalId
+    principal_id = data.azurerm_user_assigned_identity.databricks_managed_identity.principal_id
 }
 
