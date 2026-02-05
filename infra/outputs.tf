@@ -108,6 +108,10 @@ output "databricks_workspace_id" {
   value = module.databricks.databricks_workspace_id
 }
 
+output "databricks_managed_identity_client_id" {
+  value = module.databricks.databricks_managed_identity_client_id
+}
+
 # 09-databricks-components
 
 output "databricks_cluster_id" {

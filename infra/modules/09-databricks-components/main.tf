@@ -1,6 +1,7 @@
-# resource "databricks_service_principal" "managed_identity_mapping" {
-#     application_id = 
-# }
+resource "databricks_service_principal" "managed_identity_mapping" {
+    application_id = var.databricks_managed_identity_client_id
+    display_name = "dbmanagedidentity_manual_assignment"
+}
 
 resource "databricks_cluster" "default_cluster" {
     cluster_name = "tf-uni-rankings-default-cluster"

@@ -36,5 +36,7 @@ provider "azurerm" {
 provider "databricks" {
   host = module.databricks.databricks_workspace_url
   azure_workspace_resource_id = module.databricks.databricks_workspace_id
+  azure_client_id = module.databricks.databricks_managed_identity_client_id
+  azure_use_msi = true
 }
 
