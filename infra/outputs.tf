@@ -110,4 +110,6 @@ output "databricks_workspace_id" {
 
 # 09-databricks-components
 
-
+output "databricks_cluster_id" {
+    value = module.databricks_components.databricks_cluster_id
+}

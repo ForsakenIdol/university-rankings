@@ -8,6 +8,7 @@ terraform {
 }
 
 variable "databricks_workspace_id" {}
+variable "storage_account_name" {}
 
 # Fetch defaults, but wait for resource to become available before executing lazy loading
 data "databricks_current_user" "me" {

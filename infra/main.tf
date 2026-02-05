@@ -79,4 +79,5 @@ module "databricks_components" {
   source = "./modules/09-databricks-components"
 
   databricks_workspace_id = module.databricks.databricks_workspace_id
+  storage_account_name = module.storage_account.raw_and_curated_storage_account_name
 }
