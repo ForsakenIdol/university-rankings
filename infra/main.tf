@@ -78,4 +78,5 @@ module "databricks" {
 module "databricks_components" {
   source = "./modules/09-databricks-components"
 
+  databricks_workspace_id = module.databricks.databricks_workspace_id
 }
