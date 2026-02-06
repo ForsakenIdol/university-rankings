@@ -6,7 +6,7 @@ resource "databricks_service_principal" "managed_identity_mapping" {
 resource "databricks_cluster" "default_cluster" {
     cluster_name = "tf-uni-rankings-default-cluster"
     spark_version = data.databricks_spark_version.runtime_16_4.id
-    node_type_id = "Standard_D4ds_v5" # data.databricks_node_type.smallest.id
+    node_type_id = "Standard_D4ds_v5"
 
     kind = "CLASSIC_PREVIEW"
     is_single_node = true

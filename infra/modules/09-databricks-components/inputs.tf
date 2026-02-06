@@ -23,7 +23,3 @@ data "databricks_spark_version" "runtime_16_4" {
   scala = "2.12"
   long_term_support = true
 }
-
-data "databricks_node_type" "smallest" {
-  depends_on = [ var.databricks_workspace_id ]
-}
