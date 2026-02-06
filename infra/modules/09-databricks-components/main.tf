@@ -11,8 +11,13 @@ resource "databricks_cluster" "default_cluster" {
     kind = "CLASSIC_PREVIEW"
     is_single_node = true
     runtime_engine = "PHOTON"
-    data_security_mode = "DATA_SECURITY_MODE_AUTO"
+    data_security_mode = "SINGLE_USER"
+    single_user_name = data.databricks_current_user.me.user_name
     autotermination_minutes = 180
+
+    spark_conf = {
+        "spark.databricks.unityCatalog.enabled": false
+    }
     
 }
 
