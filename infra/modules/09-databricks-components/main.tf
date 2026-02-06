@@ -20,5 +20,6 @@ resource "databricks_notebook" "gold_tables" {
     language = "PYTHON"
     content_base64 = base64encode(templatefile("${path.module}/notebooks/create-gold-tables.py", {
         storage_account_name = var.storage_account_name
+        managed_identity_client_id = var.databricks_managed_identity_client_id
     }))
 }

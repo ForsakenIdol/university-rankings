@@ -26,8 +26,11 @@ blob_container_name = "curated"
 # Construct the blob endpoint from the account name
 account_url = f"https://{storage_account_name}.blob.core.windows.net"
 
-#Create a BlobServiceClient object using DefaultAzureCredential
-blob_service_client = BlobServiceClient(account_url, credential=DefaultAzureCredential())
+#Create a BlobServiceClient object using the managed identity client ID
+managed_identity_credential = DefaultAzureCredential(
+    managed_identity_client_id="${managed_identity_client_id}"
+)
+blob_service_client = BlobServiceClient(account_url, credential=managed_identity_credential)
 
 # Get a user delegation key that's valid for 1 day
 delegation_key_start_time = datetime.datetime.now(datetime.timezone.utc)
